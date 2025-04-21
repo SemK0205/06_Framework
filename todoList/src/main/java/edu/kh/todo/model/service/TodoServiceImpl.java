@@ -100,6 +100,10 @@ public int changeComplete(Todo todo) {
 	public List<Todo> selectList() {
 		return mapper.selectAll();
 	}
+@Override
+	public int todoDelete2(int todoNo) {
+		return mapper.todoDelete2(todoNo);
+	}
 
   
 }

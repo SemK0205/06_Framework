@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -105,16 +107,32 @@ public class AjaxController {
 		// -> HttpMessageConvertor가 JSON 형태로 변환하여 반환
 	}
 	
-	@ResponseBody
+	@ResponseBody	// 비동기 요청을 보낸곳으로 데이터(반환값) 돌려보냄
 	@GetMapping("detail")
 	public Todo select(Todo todo) {
 		return service.todoDetail(todo.getTodoNo());
+		// return 자료형 : Todo(dto)
+		// -> HttpMessageConvertor 가 String(JSON) 형태로 변환해서 반환
 	}
 	
 	@ResponseBody
 	@GetMapping("complete")
 	public int complete(Todo todo) {
 		return service.changeComplete(todo);
+	}
+	
+	// 할 일 삭제 요청(DELETE)
+	@ResponseBody
+	@DeleteMapping("delete")
+	public int todoDelete(@RequestBody int todoNo) {
+		return service.todoDelete2(todoNo);
+	}
+	
+	// 할 일 수정(PUT)
+	@ResponseBody
+	@PutMapping("update")
+	public int todoUpdate(@RequestBody Todo todo) {
+		return service.todoUpdate(todo);
 	}
 
 }
