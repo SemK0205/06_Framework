@@ -48,6 +48,8 @@ int todoDelete(Todo todo);
 
 int getTotalCount();
 
+int todoDelete2(int todoNo);
+
 
 
   

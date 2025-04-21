@@ -42,5 +42,7 @@ int getTotalCount();
 int getCompleteCount();
 
 List<Todo> selectList();
+
+int todoDelete2(int todoNo);
   
 }
