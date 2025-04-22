@@ -37,6 +37,7 @@ const getCookie = (key) => {
 
 // 이메일 작성 input 태그 요소
 const loginEmail = document.querySelector("#loginForm input[name='memberEmail']");
+const loginPw = document.querySelector("#loginForm input[name='memberPw']");
 
 if(loginEmail != null){ // 로그인폼의 이메일 input태그가 화면상에 존재할 때
 
@@ -51,3 +52,14 @@ if(loginEmail != null){ // 로그인폼의 이메일 input태그가 화면상에
   }
 }
 
+// 로그인폼 띄어쓰기 버튼
+
+// 로그인 시 이메일 input창과 비밀번호 input창이 비어있을 경우 넘어가지 않게 유지
+document.querySelector("#loginForm button").addEventListener("click", (e) => {
+
+  if(loginEmail.value.trim().length == 0 || loginPw.value.trim().length == 0){
+    e.preventDefault();
+    alert("이메일 또는 비밀번호를 입력 해 주세요.");
+  }
+
+});
