@@ -19,5 +19,12 @@
   		INSERT INTO TB_AUTH_KEY
   		VALUES(SEQ_KEY_NO.NEXTVAL, #{email}, #{authKey}, default)
   	</insert>
+  	
+  	<!-- 인증번호 일치 확인 -->
+  	<select id="checkAuthKey">
+  		SELECT COUNT(*)
+  		FROM TB_AUTH_KEY
+  		WHERE EMAIL = #{email} AND AUTH_KEY = #{authKey}
+  	</select>
   
 </mapper>

@@ -11,4 +11,12 @@ public interface MemberMapper {
 
 	int checkEmail(String memberEmail);
 
+	int checkNickname(String memberNickname);
+
+	int checkMemberTel(String memberTel);
+
+	int memberSignUp(Member member);
+
+	String checkEmail2(Member member);
+
 }

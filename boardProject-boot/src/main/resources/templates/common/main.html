@@ -60,7 +60,7 @@
                 <a href="/member/signup">회원가입</a>
 
                 <span> | </span>
-                <a href="#">ID/PW 찾기</a>
+                <a href="/member/findId">ID/PW 찾기</a>
               </article>
     
             </form>
@@ -69,7 +69,7 @@
           <th:block th:unless="${session.loginMember == null}">
             <article class="login-area">
 
-              <a href="#">
+              <a href="/myPage/memberProfile">
                 <!-- 프로필 이미지 -->
 
                 <!--
@@ -88,7 +88,7 @@
               <div class="my-info" th:object="${session.loginMember}">
                 
                 <div>
-                  <a href="#" id="nickname" th:text="*{memberNickname}">닉네임</a>
+                  <a href="/myPage/info" id="nickname" th:text="*{memberNickname}">닉네임</a>
                   <a href="/member/logout" id="logoutBtn">로그아웃</a>
                 </div>
 
