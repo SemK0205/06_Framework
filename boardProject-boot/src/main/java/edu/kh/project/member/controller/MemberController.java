@@ -216,13 +216,32 @@ public class MemberController {
 		return "redirect:/member/findId";
 	}
 	
+	@ResponseBody
 	@PostMapping("findPw")
-	public String findPw(Member member) {
+	public int findPw(Member member) {
 		
+		return service.findPw(member);
+	}
+
+	@PostMapping("findPw2")
+	public String findPw2(Member member, RedirectAttributes ra) {
 		
+		int result = service.changeNewPw(member);
 		
+		String message = null;
+		String path = null;
 		
-		return "";
+		if(result>0) {
+			message = "새로운 비밀번호로 로그인 해 주세요.";
+			path ="/";
+		} else {
+			message = "다시 입력해 주세요";
+			path ="/member/findPw";
+		}
+
+		ra.addFlashAttribute("message",message);
+		
+		return "redirect:"+path;
 	}
 	
   

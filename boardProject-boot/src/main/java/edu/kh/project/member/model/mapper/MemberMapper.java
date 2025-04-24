@@ -19,4 +19,8 @@ public interface MemberMapper {
 
 	String checkEmail2(Member member);
 
+	int findPw(Member member);
+
+	int changeNewPw(Member member);
+
 }
