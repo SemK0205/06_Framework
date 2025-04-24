@@ -124,4 +124,21 @@ public class MemberServiceImpl implements MemberService {
 
 		return mapper.checkEmail2(member);
 	}
+	
+	/**
+	 * 비밀번호 찾기
+	 */
+	@Override
+	public int findPw(Member member) {
+		return mapper.findPw(member);
+	}
+	
+	@Override
+	public int changeNewPw(Member member) {
+		String encPw = bcrypt.encode(member.getMemberPw());
+		member.setMemberPw(encPw);
+		
+		return mapper.changeNewPw(member);
+	}
+	
 }

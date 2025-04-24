@@ -54,4 +54,19 @@
    	FROM MEMBER
    	WHERE MEMBER_NICKNAME = #{memberNickname} AND MEMBER_TEL = #{memberTel}
    </select>
+   
+   <!-- 아이디 존재 여부 -->
+   <select id="findPw">
+   	SELECT COUNT(*)
+   	FROM MEMBER
+   	WHERE MEMBER_NICKNAME = #{memberNickname} AND 
+   	MEMBER_EMAIL = #{memberEmail} AND MEMBER_TEL = #{memberTel}
+   </select>
+   
+   <!-- 비밀번호 변경 -->
+   <update id="changeNewPw">
+   	UPDATE MEMBER SET
+   	MEMBER_PW = #{memberPw}
+   	WHERE MEMBER_EMAIL = #{memberEmail}
+   </update>
 </mapper>

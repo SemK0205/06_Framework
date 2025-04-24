@@ -41,4 +41,16 @@ public interface MemberService {
 	 */
 	String checkEmail2(Member member);
 
+	/** 비밀번호 찾기
+	 * @param member
+	 * @return
+	 */
+	int findPw(Member member);
+
+	/** 새 비밀번호 입력
+	 * @param member
+	 * @return
+	 */
+	int changeNewPw(Member member);
+
 }
