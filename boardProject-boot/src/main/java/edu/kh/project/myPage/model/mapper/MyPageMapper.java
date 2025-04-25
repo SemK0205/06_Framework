@@ -23,4 +23,6 @@ public interface MyPageMapper {
 
 	List<UploadFile> fileList(int memberNo);
 
+	int profile(Member member);
+
 }
