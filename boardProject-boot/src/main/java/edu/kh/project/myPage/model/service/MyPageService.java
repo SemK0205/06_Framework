@@ -50,4 +50,19 @@ public interface MyPageService {
 	 */
 	List<UploadFile> fileList(int memberNo);
 
+	/** 여러 파일 업로드 테스트
+	 * @param aaaList
+	 * @param bbbList
+	 * @param memberNo
+	 * @return
+	 */
+	int fileUpload3(List<MultipartFile> aaaList, List<MultipartFile> bbbList, int memberNo) throws Exception;
+
+	/** 프로필 이미지 변경
+	 * @param loginMember
+	 * @param profileImg
+	 * @return
+	 */
+	int profile(Member loginMember, MultipartFile profileImg) throws Exception;
+
 }
