@@ -1,8 +1,11 @@
 package edu.kh.project.board.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,6 +26,7 @@ import edu.kh.project.board.model.dto.Board;
 import edu.kh.project.board.model.service.BoardService;
 import edu.kh.project.board.model.service.EditBoardService;
 import edu.kh.project.member.model.dto.Member;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -237,5 +242,26 @@ public class EditBoardController  {
 		
 		return "redirect:"+path;
 	}
+	
+	   @PostMapping("/uploadImage")
+	   @ResponseBody
+	   public String uploadSummernoteImage(@RequestParam("image") MultipartFile image,
+	                                       HttpServletRequest req) throws IOException {
+
+	       String uploadPath = "C:/uploadFiles/board/";  // ✅ 기존 설정과 맞춤
+	       File folder = new File(uploadPath);
+	       if (!folder.exists()) folder.mkdirs();
+
+	       String originalName = image.getOriginalFilename();
+	       String ext = originalName.substring(originalName.lastIndexOf("."));
+	       String uuidName = UUID.randomUUID().toString() + ext;
+
+	       File target = new File(uploadPath + uuidName);
+	       image.transferTo(target);
+
+	       // ✅ 반드시 FileConfig.java에서 매핑된 URL로 반환해야 함
+	       String imageUrl = req.getContextPath() + "/images/board/" + uuidName;
+	       return imageUrl;
+	   }
 
 }

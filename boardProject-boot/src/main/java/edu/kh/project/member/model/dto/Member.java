@@ -27,6 +27,7 @@ public class Member {
 	private String enrollDate;		// 회원 가입일
 	private String memberDelFl;		// 탈퇴 여부(Y,N)
 	private int autority;			// 권한(1:일반, 2:관리자)
+	private int studyNo;
 	
 
 }
