@@ -35,9 +35,25 @@
     <section class="content">
 
       <section class="content-1">
-        <div id='calendar'></div>
-        <!-- 비동기 보충 시 사용 영역 -->
+         <table>
+			<thead>
+				<tr>
+					<th>카테고리 번호</th>
+					<th>카테고리 이름</th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="category : ${application.categoryList}">
+					<td>[[${category.categoryNo}]]</td>
+					<td>[[${category.categoryName}]]</td>
+				</tr>
+			</tbody>
+		</table>	
+        <!-- <div id='calendar'></div>
+        비동기 보충 시 사용 영역 -->
       </section>
+
+     
 
       <section class="content-2">
         <!-- 로그인, 회원가입 버튼 -->
