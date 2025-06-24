@@ -10,7 +10,7 @@ import edu.kh.project.common.interceptor.BoardTypeIntercepter;
 // 인터셉터가 어떤 요청을 가로챌지 설정하는 클래스
 
 @Configuration
-public class InterceptorConpig implements WebMvcConfigurer {
+public class InterceptorConfig implements WebMvcConfigurer {
 
 	// 인터셉터 클래스 Bean 등록
 	@Bean

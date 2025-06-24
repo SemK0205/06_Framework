@@ -89,4 +89,84 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.selectOne(map);
 	}
 	
+	@Override
+	public int boardLike(Map<String, Integer> map) {
+		
+		int result = 0;
+		
+		// 1. 좋아요가 체크된 상태인 경우(likeCheck == 1)
+		// -> BOARD_LIKE 테이블에 DELETE 수행
+		if(map.get("likeCheck") == 1) {
+			result = mapper.deleteBoardLike(map);
+		} else {
+			// 2. 좋아요가 해제된 상태인 경우(likeCheck == 0)
+			// -> BOARD_LIKE 테이블에 INSERT 수행
+			result = mapper.insertBoardLike(map);
+		}
+		
+		// 3. 다시 해당 게시글의 좋아요 개수를 조회해서 반환
+		if(result > 0) {
+			return mapper.selectLikeCount(map.get("boardNo"));
+		}
+		
+		
+		return -1;
+	}
+	
+	@Override
+	public int updateReadCount(int boardNo) {
+		
+		// 1. 조회수 1 증가 (UPDATE)
+		int result = mapper.updateReadCount(boardNo);
+		
+		// 2. 변경된 현재 조회수 조회
+		if(result > 0) {
+			return mapper.selectReadCount(boardNo);
+		}
+		
+		return -1;
+	}
+	
+	@Override
+	public Map<String, Object> searchList(Map<String, Object> paramMap, int cp) {
+		// paramMap (key, query, boardCode)
+		
+		// 1. 지정된 게시판(boardCode)에서
+		// 검색 조건에 맞으면서
+		// 삭제되지 않은 게시글 수를 조회
+		
+		int listCount = mapper.getSearchCount(paramMap);
+		
+		// 2. 1번의 결과 + cp 를 이용해서
+		// Pagination 객체를 생성
+		Pagination pagination = new Pagination(cp, listCount);
+		
+		// 3. 특정 게시판의 지정된 페이지 목록 조회
+		int limit = pagination.getLimit();
+		int offset = (cp-1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		// mapper 메서드 호출 코드 수행
+		// -> Mapper 메서드 호출 시 전달 할 수 있는 매개변수 1개
+		// -> 2개를 전달할 수 있는 경우가 있음
+		// RowBounds 를 이용할 때
+		// 1번 째 : sql 에 전달할 파라미터
+		// 2번 째 : RowBounds 객체
+		List<Board> boardList = mapper.selectSearchList(paramMap, rowBounds);
+		
+		// 4. 목록 조회 결과 + Pagination 객체를 Map으로 묶음
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+		
+		
+		return map;
+	}
+	
+	@Override
+	public List<String> selectDbImageList() {
+		return mapper.selectDbImageList();
+	}
+	
 }
