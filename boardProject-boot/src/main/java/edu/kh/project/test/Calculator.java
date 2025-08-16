@@ -1,6 +1,6 @@
 package edu.kh.project.test;
 
-// 계산기 클래스
+// 계산기 기능 클래스
 public class Calculator {
 
 	// 더하기
